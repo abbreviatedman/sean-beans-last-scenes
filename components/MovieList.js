@@ -1,47 +1,53 @@
 import React, {Component} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import axios from 'axios';
 
 import CenterView from './CenterView';
 import MovieListing from './MovieListing';
 import MyText from './MyText';
-
-const dummyData = [{number: 1, key: 1},{number: 2, key: 2},{number: 3, key: 3}]
+import sortMoviesByYearDescending from '../utilities/sortMoviesByYearDescending';
 
 class MovieList extends Component {
-  constructor() {
-    super();
-    this.state = {movies: []}
-  }
+  static navigationOptions = {
+    title: "Sean Bean's Last Scenes"
+  };
   
-  _renderItem({item}) {
-    return <MovieListing movie={item} />
-  }
-    
-  _keyExtractor(item, index) {
-    return item.title;
+  constructor(prop) {
+    super();
+    this.state = {moviesWithClips: [], moviesWithoutClips: []}
   }
   
   componentDidMount() {
     axios.get('https://seanbeanapi.herokuapp.com/api/movies')
-    .then(response => this.setState({movies: response.data}));
+    .then(response => {
+      const movies = response.data.sort(sortMoviesByYearDescending);
+      const moviesWithClips = movies.filter(movie => movie.cloudinaryName)
+      const moviesWithoutClips = movies.filter(movie => !movie.cloudinaryName)
+      this.setState({moviesWithClips, moviesWithoutClips});
+    })
   }
-  // const moviesToData = movies.map(movie => {
-  //   return {key: movie}
-  // });
-  // const movie = movies[0] || {title: 'hi'};
+  
   render() {
-    const {movies} = this.state;
+    const {moviesWithClips, moviesWithoutClips} = this.state;
+    const {navigation} = this.props;
     
     return (
-      <FlatList
-        keyExtractor={this._keyExtractor}
-        data={movies}
-        renderItem = {this._renderItem}
-      />
+      <ScrollView>
+        {moviesWithClips && moviesWithClips.map(movie => (
+          <View key={movie.title}>
+            <MovieListing movie={movie} navigation={navigation} />
+          </View>
+        ))}
+        {moviesWithoutClips && moviesWithoutClips.map(movie => (
+          <View key={movie.title}>
+            <MovieListing movie={movie} navigation={navigation} />
+          </View>
+        ))}
+     </ScrollView>
     );
   }
 }
 
-export default MovieList;
+MovieList.router = MovieListing.router;
 
+export default MovieList;

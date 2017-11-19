@@ -8,14 +8,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   }
-})
+});
 
-const CenterView = ({children}) => {
-  return (
-    <View style={styles.container}>
-      {children}
-    </View>
-  )
-}
+const CenterView = ({children}) => (
+  <View style={styles.container}>
+    {children}
+  </View>
+);
 
 export default CenterView;

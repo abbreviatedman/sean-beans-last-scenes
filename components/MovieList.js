@@ -14,31 +14,21 @@ class MovieList extends Component {
   
   constructor(prop) {
     super();
-    this.state = {moviesWithClips: [], moviesWithoutClips: []}
+    this.state = {movies: []}
   }
   
   componentDidMount() {
     axios.get('https://seanbeanapi.herokuapp.com/api/movies')
-    .then(response => {
-      const movies = response.data.sort(sortMoviesByYearDescending);
-      const moviesWithClips = movies.filter(movie => movie.cloudinaryName)
-      const moviesWithoutClips = movies.filter(movie => !movie.cloudinaryName)
-      this.setState({moviesWithClips, moviesWithoutClips});
-    })
+      .then(response => this.setState({movies: response.data}));
   }
   
   render() {
-    const {moviesWithClips, moviesWithoutClips} = this.state;
+    const {movies} = this.state;
     const {navigation} = this.props;
     
     return (
       <ScrollView>
-        {moviesWithClips && moviesWithClips.map(movie => (
-          <View key={movie.title}>
-            <MovieListing movie={movie} navigation={navigation} />
-          </View>
-        ))}
-        {moviesWithoutClips && moviesWithoutClips.map(movie => (
+        {movies.map(movie => (
           <View key={movie.title}>
             <MovieListing movie={movie} navigation={navigation} />
           </View>

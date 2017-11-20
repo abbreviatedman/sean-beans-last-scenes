@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 import axios from 'axios';
 
 import CenterView from './CenterView';
@@ -28,6 +28,7 @@ class MovieList extends Component {
     
     return (
       <ScrollView>
+        <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 30}}>{`Did Sean die? Watch his last scene in each movie to find out!`}</Text>
         {movies.map(movie => (
           <View key={movie.title}>
             <MovieListing movie={movie} navigation={navigation} />

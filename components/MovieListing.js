@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderRadius: 10,
-    padding: 3,
+    margin: 9,
     borderWidth: 3,
     borderColor: '#d6d7da',
     height: 100

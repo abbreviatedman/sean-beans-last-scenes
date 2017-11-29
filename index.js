@@ -1,4 +1,13 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
+import { StackNavigator } from 'react-navigation';
 
-AppRegistry.registerComponent('SeanBeansLastScenes', () => App);
+import MainPage from './components/MainPage';
+import MoviePage from './components/MoviePage';
+
+
+export const SeanBeansLastScenes = StackNavigator({
+  Home: {screen: MainPage},
+  MoviePageScreen: {screen: MoviePage}
+});
+
+AppRegistry.registerComponent('SeanBeansLastScenes', () => SeanBeansLastScenes);

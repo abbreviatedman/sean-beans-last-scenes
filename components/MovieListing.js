@@ -6,6 +6,10 @@ import {Button,
   Image
 } from 'react-native';
 
+import MovieListingButton from './MovieListingButton';
+import {GREEN, RED} from '../constants/colorConstants';
+import {MOVIE_PAGE_SCREEN, FORM_PAGE_SCREEN} from '../constants/screenConstants';
+
 const styles = StyleSheet.create({
   row: {
     flex: 1,
@@ -46,9 +50,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const RED = 'red';
-const GREEN = 'green';
-
 const MovieListing = ({movie, navigation}) => (
   <View style={styles.row}>
     <View style={styles.posterContainer}>
@@ -61,16 +62,20 @@ const MovieListing = ({movie, navigation}) => (
     </View>
     <View style={styles.rightSide}>
       {movie.cloudinaryName
-      ? <Button
-      onPress={() => navigation.navigate('MoviePageScreen', {movie})}
-      title={`Play`}
-      color={GREEN}
-    />
-      : <Button
-      onPress={() => navigation.navigate('MoviePageScreen', {movie})}
-      title={`Help us find it!`}
-      color={RED}
-    />}
+      ? <MovieListingButton
+          color={GREEN}
+          buttonText={'PLAY'}
+          screen={MOVIE_PAGE_SCREEN}
+          navigation={navigation}
+          movie={movie}
+      />
+      : <MovieListingButton
+          color={RED}
+          buttonText={'HELP US FIND THE CLIP!'}
+          screen={FORM_PAGE_SCREEN}
+          navigation={navigation}
+          movie={movie}
+      />}
     </View>
   </View>
 );

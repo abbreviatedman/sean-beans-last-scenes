@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {View, ScrollView, Text} from 'react-native';
 import axios from 'axios';
 
-import CenterView from './CenterView';
-import MovieListing from './MovieListing';
 import MovieList from './MovieList';
+import MovieListingButton from './MovieListingButton';
 import MyText from './MyText';
 import sortMoviesByYearDescending from '../utilities/sortMoviesByYearDescending';
+import CenterView from './CenterView';
 
 class MainPage extends Component {
   static navigationOptions = {
@@ -42,6 +42,6 @@ class MainPage extends Component {
   }
 }
 
-MainPage.router = MovieListing.router;
+MainPage.router = MovieListingButton.router;
 
 export default MainPage;

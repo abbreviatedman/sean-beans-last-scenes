@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, WebView } from 'react-native';
+import Video from 'react-native-video';
+import VideoPlayer from 'react-native-video-controls'
 
 import CenterView from './CenterView';
 import MyText from './MyText';
@@ -11,6 +13,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     padding: 5,
     margin: 20,
+    flex: 1
   },
 })
 
@@ -18,30 +21,30 @@ class MoviePage extends Component {
   constructor(props) {
     super(props);
     const {movie} = this.props.navigation.state.params;
-    this.state = {movie};
+    this.state = {movie, paused: true};
+    this.playVideo = this.playVideo.bind(this);
     }
     
   static navigationOptions = ({navigation}) => ({
     title: navigation.state.params.movie.title
   })
   
+  playVideo() {
+    this.setState({paused: false})
+  }
+  
   render() {
     const {title, year, url} = this.state.movie;
+    const {paused} = this.state;
     
     return (
       <View style={styles.view}>
         <MyText text={`Title: ${title}`} />
         <MyText text={`Year: ${year}`} />
-        {/* <Video
+        <WebView
           source={{uri: url}}
-          rate={1.0}
-          volume={1.0}
-          muted={false}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
-          style={{ width: 300, height: 300 }}
-        /> */}
+          style={{flex: 1}} // OR style={{height: 100, width: 100}}
+        />
       </View>
     )
   }

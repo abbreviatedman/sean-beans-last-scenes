@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 180,
     width: 90,
-    borderWidth: 5,
-    
+    borderWidth: 5
   },
   leftSide: {
     flex: 1,
@@ -55,7 +54,7 @@ const MovieListing = ({movie, navigation}) => (
     <View style={styles.posterContainer}>
       {movie.posterUri
       ? <Image source={{uri: movie.posterUri}} style={styles.poster} />
-      : null}
+      : <Text style={{fontSize: 90, textAlign: 'center', fontWeight: 'bold'}}>{`X`}</Text>}
     </View>
     <View style={styles.leftSide}>
       <Text style={styles.emphasis}>{`${movie.title} - ${movie.year}`}</Text>

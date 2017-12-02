@@ -22,16 +22,11 @@ class MoviePage extends Component {
     super(props);
     const {movie} = this.props.navigation.state.params;
     this.state = {movie, paused: true};
-    this.playVideo = this.playVideo.bind(this);
-    }
+  }
     
   static navigationOptions = ({navigation}) => ({
     title: navigation.state.params.movie.title
   })
-  
-  playVideo() {
-    this.setState({paused: false})
-  }
   
   render() {
     const {title, year, url} = this.state.movie;
@@ -43,7 +38,7 @@ class MoviePage extends Component {
         <MyText text={`Year: ${year}`} />
         <WebView
           source={{uri: url}}
-          style={{flex: 1}} // OR style={{height: 100, width: 100}}
+          style={{flex: 1}}
         />
       </View>
     )

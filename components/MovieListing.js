@@ -8,7 +8,7 @@ import {Button,
 
 import MovieListingButton from './MovieListingButton';
 import {GREEN, RED} from '../constants/colorConstants';
-import {MOVIE_PAGE_SCREEN, FORM_PAGE_SCREEN} from '../constants/screenConstants';
+import {MOVIE_PAGE_SCREEN, EMAIL_US_PAGE_SCREEN} from '../constants/screenConstants';
 
 const styles = StyleSheet.create({
   row: {
@@ -71,7 +71,7 @@ const MovieListing = ({movie, navigation}) => (
       : <MovieListingButton
           color={RED}
           buttonText={'HELP US FIND THE CLIP!'}
-          screen={FORM_PAGE_SCREEN}
+          screen={EMAIL_US_PAGE_SCREEN}
           navigation={navigation}
           movie={movie}
       />}

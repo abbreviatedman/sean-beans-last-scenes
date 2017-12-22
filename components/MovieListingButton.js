@@ -1,12 +1,14 @@
 import React from 'react';
-import {Button, View} from 'react-native';
+import { Button, View } from 'react-native';
 
-const MovieListingButton = ({navigation, movie, buttonText, color, screen}) => (
+import { MOVIE_PAGE_SCREEN } from '../constants/screenConstants';
+
+const MovieListingButton = ({navigation, movie}) => (
   <View>
     <Button
-      onPress={() => navigation.navigate(screen, {movie})}
-      title={buttonText}
-      color={color}
+      onPress={() => navigation.navigate(MOVIE_PAGE_SCREEN, {movie})}
+      title={'PLAY'}
+      color={'green'}
     />
   </View>
 );

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button,
+import {
+  Button,
   View,
   StyleSheet,
   Text,
@@ -7,8 +8,31 @@ import {Button,
 } from 'react-native';
 
 import MovieListingButton from './MovieListingButton';
-import {GREEN, RED} from '../constants/colorConstants';
-import {MOVIE_PAGE_SCREEN, EMAIL_US_PAGE_SCREEN} from '../constants/screenConstants';
+import EmailUsButton from './EmailUsButton';
+
+const MovieListing = ({movie, navigation}) => (
+  <View style={styles.row}>
+    <View style={styles.posterContainer}>
+      {movie.posterUri
+        ? <Image source={{uri: movie.posterUri}} style={styles.poster} />
+        : <Text style={{fontSize: 90, textAlign: 'center', fontWeight: 'bold'}}>{'X'}</Text>}
+    </View>
+    <View style={styles.leftSide}>
+      <Text style={styles.emphasis}>{`${movie.title} - ${movie.year}`}</Text>
+    </View>
+    <View style={styles.rightSide}>
+      {movie.cloudinaryName
+        ? <MovieListingButton
+          navigation={navigation}
+          movie={movie}
+        />
+        : <EmailUsButton
+          navigation={navigation}
+          movie={movie}
+        />}
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
   row: {
@@ -48,36 +72,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-
-const MovieListing = ({movie, navigation}) => (
-  <View style={styles.row}>
-    <View style={styles.posterContainer}>
-      {movie.posterUri
-      ? <Image source={{uri: movie.posterUri}} style={styles.poster} />
-      : <Text style={{fontSize: 90, textAlign: 'center', fontWeight: 'bold'}}>{`X`}</Text>}
-    </View>
-    <View style={styles.leftSide}>
-      <Text style={styles.emphasis}>{`${movie.title} - ${movie.year}`}</Text>
-    </View>
-    <View style={styles.rightSide}>
-      {movie.cloudinaryName
-      ? <MovieListingButton
-          color={GREEN}
-          buttonText={'PLAY'}
-          screen={MOVIE_PAGE_SCREEN}
-          navigation={navigation}
-          movie={movie}
-      />
-      : <MovieListingButton
-          color={RED}
-          buttonText={'HELP US FIND THE CLIP!'}
-          screen={EMAIL_US_PAGE_SCREEN}
-          navigation={navigation}
-          movie={movie}
-      />}
-    </View>
-  </View>
-);
 
 export default MovieListing;
 

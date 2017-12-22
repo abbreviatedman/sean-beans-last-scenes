@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, WebView } from 'react-native';
-import Video from 'react-native-video';
-import VideoPlayer from 'react-native-video-controls'
 
-import CenterView from './CenterView';
 import MyText from './MyText';
 
 const styles = StyleSheet.create({
@@ -18,20 +15,14 @@ const styles = StyleSheet.create({
 })
 
 class MoviePage extends Component {
-  constructor(props) {
-    super(props);
-    const {movie} = this.props.navigation.state.params;
-    this.state = {movie, paused: true};
-  }
-    
+
   static navigationOptions = ({navigation}) => ({
     title: navigation.state.params.movie.title
   })
-  
+
   render() {
-    const {title, year, url} = this.state.movie;
-    const {paused} = this.state;
-    
+    const { title, year, url } = this.props.navigation.state.params.movie;
+
     return (
       <View style={styles.view}>
         <MyText text={`Title: ${title}`} />

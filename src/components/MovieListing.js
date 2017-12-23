@@ -10,29 +10,32 @@ import {
 import MovieListingButton from './MovieListingButton';
 import EmailUsButton from './EmailUsButton';
 
-const MovieListing = ({movie, navigation}) => (
-  <View style={styles.row}>
-    <View style={styles.posterContainer}>
-      {movie.posterUri
-        ? <Image source={{uri: movie.posterUri}} style={styles.poster} />
-        : <Text style={{fontSize: 90, textAlign: 'center', fontWeight: 'bold'}}>{'X'}</Text>}
+const MovieListing = ({movie, navigation}) => {
+  const {row} = styles;
+  const {title, year, cloudinaryName, posterUri} = movie;
+  const uri = posterUri ? posterUri : '../../assets/no-image.png';
+  return (
+    <View style={row}>
+      <View style={styles.posterContainer}>
+        <Image source={uri} style={styles.poster} />
+      </View>
+      <View style={styles.leftSide}>
+        <Text style={styles.emphasis}>{`${title} - ${year}`}</Text>
+      </View>
+      <View style={styles.rightSide}>
+        {cloudinaryName
+          ? <MovieListingButton
+            navigation={navigation}
+            movie={movie}
+          />
+          : <EmailUsButton
+            navigation={navigation}
+            movie={movie}
+          />}
+      </View>
     </View>
-    <View style={styles.leftSide}>
-      <Text style={styles.emphasis}>{`${movie.title} - ${movie.year}`}</Text>
-    </View>
-    <View style={styles.rightSide}>
-      {movie.cloudinaryName
-        ? <MovieListingButton
-          navigation={navigation}
-          movie={movie}
-        />
-        : <EmailUsButton
-          navigation={navigation}
-          movie={movie}
-        />}
-    </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   row: {
